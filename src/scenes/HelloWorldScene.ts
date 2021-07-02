@@ -5,7 +5,7 @@ export default class HelloWorldScene extends Phaser.Scene {
     super("hello-world")
   }
 
-  preload() {
+  preload(): void {
     this.load.setBaseURL("http://labs.phaser.io")
 
     this.load.image("sky", "assets/skies/space3.png")
@@ -13,7 +13,7 @@ export default class HelloWorldScene extends Phaser.Scene {
     this.load.image("red", "assets/particles/red.png")
   }
 
-  create() {
+  create(): void {
     this.add.image(400, 300, "sky")
 
     const particles = this.add.particles("red")
