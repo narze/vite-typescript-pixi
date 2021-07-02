@@ -1,0 +1,7 @@
+import { defineComponent, Types } from "bitecs"
+
+export const Position = defineComponent({
+  x: Types.f32,
+  y: Types.f32,
+  a: Types.f32,
+})
