@@ -126,7 +126,7 @@ export default class HelloWorldScene extends Phaser.Scene {
     }
   }
 
-  update(t: number, dt: number): void {
+  update(): void {
     const cursors = this.input.keyboard.createCursorKeys()
 
     Input.left[this.player] = cursors.left.isDown ? 1 : 0
