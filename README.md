@@ -1,1 +1,1 @@
-# Vite + TypeScript + Phaser 3 + bitECS Template
+# Vite + TypeScript + Pixi.js + bitECS Template
