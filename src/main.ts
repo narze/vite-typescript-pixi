@@ -1,18 +1,9 @@
-import Phaser from "phaser"
-
+import * as PIXI from "pixi.js"
 import HelloWorldScene from "./scenes/HelloWorldScene"
 
-const config = {
-  type: Phaser.AUTO,
-  width: 800,
-  height: 600,
-  physics: {
-    default: "arcade",
-    arcade: {
-      gravity: { y: 200 },
-    },
-  },
-  scene: [HelloWorldScene],
-}
+const app = new PIXI.Application({ width: 800, height: 800 })
 
-export default new Phaser.Game(config)
+//Add the canvas that Pixi automatically created for you to the HTML document
+document.getElementById("app")?.appendChild(app.view)
+
+new HelloWorldScene(app)

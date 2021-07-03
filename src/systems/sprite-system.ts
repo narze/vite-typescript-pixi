@@ -1,4 +1,4 @@
-import Phaser from "phaser"
+import * as PIXI from "pixi.js"
 import {
   defineQuery,
   defineSystem,
@@ -10,10 +10,10 @@ import { Position } from "../components/position"
 import { Sprite } from "../components/sprite"
 
 export const createSpriteSystem = (
-  scene: Phaser.Scene,
-  textures: string[]
+  container: PIXI.Container,
+  textures: PIXI.Texture[]
 ): System => {
-  const spritesById = new Map<number, Phaser.GameObjects.Sprite>()
+  const spritesById = new Map<number, PIXI.Sprite>()
   const spriteQuery = defineQuery([Sprite, Position])
   const spriteQueryEnter = enterQuery(spriteQuery)
   const spriteQueryExit = exitQuery(spriteQuery)
@@ -21,10 +21,9 @@ export const createSpriteSystem = (
   const SpriteSystem = defineSystem((world) => {
     const enterEntities = spriteQueryEnter(world)
     enterEntities.forEach((eid) => {
-      spritesById.set(
-        eid,
-        scene.add.sprite(0, 0, textures[Sprite.texture[eid]])
-      )
+      const sprite = new PIXI.Sprite(textures[Sprite.texture[eid]])
+
+      spritesById.set(eid, container.addChild(sprite))
     })
 
     const entities = spriteQuery(world)

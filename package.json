@@ -20,6 +20,6 @@
   },
   "dependencies": {
     "bitecs": "^0.3.12",
-    "phaser": "^3.55.2"
+    "pixi.js": "^6.0.4"
   }
 }
