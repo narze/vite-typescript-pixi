@@ -38,7 +38,8 @@ describe("createSpritePhysicsSystem", () => {
   it("sets sprite with position attributes", () => {
     system(world)
 
-    // scene.physics.add.sprite(0, 0, textures[Sprite.texture[eid]])
-    expect(scene.physics.add.sprite).toHaveBeenCalledWith(0, 0, "ufo")
+    // scene.add.sprite(0, 0, textures[Sprite.texture[eid]])
+    expect(scene.add.sprite).toHaveBeenCalledWith(0, 0, "ufo")
+    expect(scene.physics.add.existing).toHaveBeenCalled()
   })
 })

@@ -13,10 +13,7 @@ export const createSpritePhysicsSystem = (
   scene: Phaser.Scene,
   textures: string[]
 ): System => {
-  const spritesById = new Map<
-    number,
-    Phaser.Types.Physics.Arcade.SpriteWithDynamicBody
-  >()
+  const spritesById = new Map<number, Phaser.GameObjects.Sprite>()
   const spriteQuery = defineQuery([SpritePhysics, Position])
   const spriteQueryEnter = enterQuery(spriteQuery)
   const spriteQueryExit = exitQuery(spriteQuery)
@@ -24,18 +21,19 @@ export const createSpritePhysicsSystem = (
   const SpriteSystem = defineSystem((world) => {
     const enterEntities = spriteQueryEnter(world)
     enterEntities.forEach((eid) => {
-      spritesById.set(
-        eid,
-        scene.physics.add
-          .sprite(
-            Position.x[eid],
-            Position.y[eid],
-            textures[SpritePhysics.texture[eid]]
-          )
-          .setVelocity(100, 200)
-          .setBounce(1, 1)
-          .setCollideWorldBounds(true)
+      const sprite = scene.add.sprite(
+        Position.x[eid],
+        Position.y[eid],
+        textures[SpritePhysics.texture[eid]]
       )
+
+      spritesById.set(eid, sprite)
+
+      scene.physics.add.existing(sprite)
+      ;(sprite as Phaser.Types.Physics.Arcade.SpriteWithDynamicBody).body
+        .setVelocity(100, 200)
+        .setBounce(1, 1)
+        .setCollideWorldBounds(true)
     })
 
     const entities = spriteQuery(world)
