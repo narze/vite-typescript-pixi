@@ -974,6 +974,11 @@
   resolved "https://registry.yarnpkg.com/@types/json-schema/-/json-schema-7.0.7.tgz#98a993516c859eb0d5c4c8f098317a9ea68db9ad"
   integrity sha512-cxWFQVseBm6O9Gbw1IWb8r6OS4OhSt3hPZLkFApLjM8TEXROBuQGLAH2i2gZpcXdLBIrpXuTDhH7Vbm1iXmNGA==
 
+"@types/matter-js@^0.17.1":
+  version "0.17.1"
+  resolved "https://registry.yarnpkg.com/@types/matter-js/-/matter-js-0.17.1.tgz#0edf77154fddcf517a78111c3b8dcce12b6a7374"
+  integrity sha512-ocKjz+1Ve7NkSFvFw6pJhE8V5iDjbRr1YiUDR6Oj7JN7u2LIGAgdlYzIoaKrjpWBKvghVVv0iuGRgubyBRUjfA==
+
 "@types/node@*":
   version "16.0.0"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-16.0.0.tgz#067a6c49dc7a5c2412a505628e26902ae967bf6f"
@@ -2736,6 +2741,11 @@ makeerror@1.0.x:
   integrity sha1-4BpckQnyr3lmDk6LlYd5AYT1qWw=
   dependencies:
     tmpl "1.0.x"
+
+matter-js@^0.17.1:
+  version "0.17.1"
+  resolved "https://registry.yarnpkg.com/matter-js/-/matter-js-0.17.1.tgz#b30ac4c708116258fbcaacd2efd8a94e34a91c7f"
+  integrity sha512-pSquoENJgvSAlQGcA0s5UkmEohGXZaUww2g3B6qG87x0iEcVf+aigMXn5UkFPdnh6w3B+C4vXSLaYqhHwKrOLA==
 
 merge-stream@^2.0.0:
   version "2.0.0"

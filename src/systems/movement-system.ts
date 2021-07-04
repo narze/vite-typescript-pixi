@@ -1,9 +1,10 @@
-import { defineQuery, defineSystem, System } from "bitecs"
+import { defineQuery, defineSystem, Not, System } from "bitecs"
 import { Position } from "../components/position"
 import { Velocity } from "../components/velocity"
+import { Physics } from "../components/physics"
 
 export const createMovementSystem = (): System => {
-  const movementQuery = defineQuery([Position, Velocity])
+  const movementQuery = defineQuery([Position, Velocity, Not(Physics)])
 
   return defineSystem((world) => {
     const ents = movementQuery(world)

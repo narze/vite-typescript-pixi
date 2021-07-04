@@ -14,68 +14,50 @@ import { Input } from "../components/input"
 import { Sprite } from "../components/sprite"
 import { Velocity } from "../components/velocity"
 import { Position } from "../components/position"
-import { createSpritePhysicsSystem } from "../systems/sprite-physics-system"
+import {
+  createPhysicsSystem,
+  createSpritePhysicsSystem,
+} from "../systems/physics-system"
 import { SpritePhysics } from "../components/sprite-physics"
+import Matter from "matter-js"
+import { Physics } from "../components/physics"
 
 export default class HelloWorldScene {
   private player: number
   private enemies: number[] = []
   private world: IWorld
   private pipeline: System
+  private engine: Matter.Engine
 
   constructor(app: PIXI.Application) {
     const container = new PIXI.Container()
 
     app.stage.addChild(container)
 
-    // Create a new texture
-    const texture = PIXI.Texture.from("assets/ufo.png")
-
-    // // Create a 5x5 grid of bunnies
-    // for (let i = 0; i < 25; i++) {
-    //   const bunny = new PIXI.Sprite(texture)
-    //   bunny.anchor.set(0.5)
-    //   bunny.x = (i % 5) * 40
-    //   bunny.y = Math.floor(i / 5) * 40
-
-    //   if (i % 2 == 0) {
-    //     container.addChild(bunny)
-    //   }
-    // }
-
-    // // Move container to the center
-    // container.x = app.screen.width / 2
-    // container.y = app.screen.height / 2
-
-    // // Center bunny sprite in local container coordinates
-    // container.pivot.x = container.width / 2
-    // container.pivot.y = container.height / 2
-
-    // // Listen for animate update
-    // app.ticker.add((delta) => {
-    //   // rotate the container!
-    //   // use delta to create frame-independent transform
-    //   container.rotation -= 0.01 * delta
-    // })
+    const textures = [
+      PIXI.Texture.from("assets/ufo.png"),
+      PIXI.Texture.from("assets/ghost.png"),
+    ]
 
     this.world = createWorld()
     this.player = addEntity(this.world)
-    // this.enemies.push(addEntity(this.world))
 
-    const spriteSystem = createSpriteSystem(container, [texture])
-    // const spritePhysicsSystem = createSpritePhysicsSystem(this, [
-    //   "ufo",
-    //   "bullet",
-    //   "ghost",
-    // ])
+    for (let i = 0; i < 15; i++) {
+      this.enemies.push(addEntity(this.world))
+    }
+
+    this.engine = Matter.Engine.create()
+
+    const spriteSystem = createSpriteSystem(container, textures)
     const movementSystem = createMovementSystem()
     const inputSystem = createInputSystem()
+    const physicsSystem = createPhysicsSystem(this.engine)
 
     this.pipeline = pipe(
       inputSystem,
       movementSystem,
+      physicsSystem,
       spriteSystem
-      // spritePhysicsSystem
     )
 
     addComponent(this.world, Sprite, this.player)
@@ -90,6 +72,24 @@ export default class HelloWorldScene {
     Velocity.y[this.player] = 0
 
     addComponent(this.world, Input, this.player)
+
+    this.enemies.forEach((enemy) => {
+      addComponent(this.world, Position, enemy)
+      addComponent(this.world, Velocity, enemy)
+      addComponent(this.world, Sprite, enemy)
+      addComponent(this.world, Physics, enemy)
+
+      Position.x[enemy] = 100 + Math.random() * 600
+      Position.y[enemy] = 0 + Math.random() * 500
+      Sprite.texture[enemy] = 1
+    })
+
+    // Static ground
+    const ground = Matter.Bodies.rectangle(400, 800, 800, 1, {
+      isStatic: true,
+    })
+
+    Matter.Composite.add(this.engine.world, ground)
 
     const up = this.keyboard("ArrowUp")
     up.press = () => {
@@ -123,8 +123,8 @@ export default class HelloWorldScene {
       Input.right[this.player] = 0
     }
 
-    app.ticker.add((delta) => {
-      // console.log(delta)
+    app.ticker.add((_dt) => {
+      Matter.Engine.update(this.engine)
       this.pipeline(this.world)
     })
   }

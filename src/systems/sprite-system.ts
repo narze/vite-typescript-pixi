@@ -22,6 +22,7 @@ export const createSpriteSystem = (
     const enterEntities = spriteQueryEnter(world)
     enterEntities.forEach((eid) => {
       const sprite = new PIXI.Sprite(textures[Sprite.texture[eid]])
+      sprite.anchor.set(0.5)
 
       spritesById.set(eid, container.addChild(sprite))
     })
