@@ -17,6 +17,8 @@ import { Position } from "../components/position"
 import { createPhysicsSystem } from "../systems/physics-system"
 import Matter from "matter-js"
 import { Physics } from "../components/physics"
+import ufoImg from "../../assets/ufo.png"
+import ghostImg from "../../assets/ghost.png"
 
 export default class HelloWorldScene {
   private player: number
@@ -30,10 +32,7 @@ export default class HelloWorldScene {
 
     app.stage.addChild(container)
 
-    const textures = [
-      PIXI.Texture.from("assets/ufo.png"),
-      PIXI.Texture.from("assets/ghost.png"),
-    ]
+    const textures = [PIXI.Texture.from(ufoImg), PIXI.Texture.from(ghostImg)]
 
     this.world = createWorld()
     this.player = addEntity(this.world)
