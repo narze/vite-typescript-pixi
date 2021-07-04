@@ -14,11 +14,7 @@ import { Input } from "../components/input"
 import { Sprite } from "../components/sprite"
 import { Velocity } from "../components/velocity"
 import { Position } from "../components/position"
-import {
-  createPhysicsSystem,
-  createSpritePhysicsSystem,
-} from "../systems/physics-system"
-import { SpritePhysics } from "../components/sprite-physics"
+import { createPhysicsSystem } from "../systems/physics-system"
 import Matter from "matter-js"
 import { Physics } from "../components/physics"
 
@@ -171,77 +167,4 @@ export default class HelloWorldScene {
 
     return key
   }
-
-  // preload(): void {
-  //   this.load.setBaseURL("https://labs.phaser.io")
-
-  //   this.load.image("ufo", "assets/sprites/ufo.png")
-  //   this.load.image("bullet", "assets/sprites/bullets/bullet4.png")
-  //   this.load.image("ghost", "assets/sprites/ghost.png")
-  // }
-
-  // create(): void {
-  //   addComponent(this.world, Position, this.player)
-
-  //   Position.x[this.player] = 100
-  //   Position.y[this.player] = 100
-
-  //   addComponent(this.world, Velocity, this.player)
-
-  //   Velocity.x[this.player] = 0
-  //   Velocity.y[this.player] = 0
-
-  //   addComponent(this.world, Sprite, this.player)
-
-  //   Sprite.texture[this.player] = 0
-
-  //   addComponent(this.world, Input, this.player)
-
-  //   this.enemies.forEach((enemy) => {
-  //     addComponent(this.world, Position, enemy)
-  //     addComponent(this.world, SpritePhysics, enemy)
-
-  //     Position.x[enemy] = 300
-  //     Position.y[enemy] = 300
-  //     SpritePhysics.texture[enemy] = 2
-  //   })
-
-  //   this.input.keyboard.on("keydown", this.onKeyDown, this)
-  // }
-
-  // onKeyDown(event: KeyboardEvent): void {
-  //   console.log(event.code)
-
-  //   if (event.code === "Space") {
-  //     const newEntity = addEntity(this.world)
-
-  //     addComponent(this.world, Position, newEntity)
-  //     addComponent(this.world, Velocity, newEntity)
-  //     addComponent(this.world, Sprite, newEntity)
-
-  //     Position.x[newEntity] = Position.x[this.player]
-  //     Position.y[newEntity] = Position.y[this.player]
-
-  //     Velocity.x[newEntity] = 10
-  //     Velocity.y[newEntity] = 10
-
-  //     Position.a[newEntity] = Math.atan2(
-  //       Velocity.y[newEntity],
-  //       Velocity.x[newEntity]
-  //     )
-
-  //     Sprite.texture[newEntity] = 1
-  //   }
-  // }
-
-  // update(): void {
-  //   const cursors = this.input.keyboard.createCursorKeys()
-
-  //   Input.left[this.player] = cursors.left.isDown ? 1 : 0
-  //   Input.right[this.player] = cursors.right.isDown ? 1 : 0
-  //   Input.down[this.player] = cursors.down.isDown ? 1 : 0
-  //   Input.up[this.player] = cursors.up.isDown ? 1 : 0
-
-  //   this.pipeline(this.world)
-  // }
 }
